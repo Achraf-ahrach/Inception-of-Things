@@ -12,8 +12,12 @@ done
 # Get the token
 NODE_TOKEN=$(cat /vagrant/node-token)
 
-# Install K3s agent
-curl -sfL https://get.k3s.io | K3S_URL=https://192.168.56.110:6443 K3S_TOKEN=${NODE_TOKEN} sh -
+# Install K3s agent with explicit node IP
+curl -sfL https://get.k3s.io | \
+    INSTALL_K3S_EXEC="--node-ip=192.168.56.111" \
+    K3S_URL=https://192.168.56.110:6443 \
+    K3S_TOKEN=${NODE_TOKEN} \
+    sh -
 
 # mkdir -p ~/.kube
 # sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config

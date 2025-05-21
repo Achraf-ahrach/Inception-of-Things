@@ -1,57 +1,14 @@
-# Vagrant.configure("2") do |config|
-#     config.vm.box = "gutehall/debian12"
-
-#   server_ip = "192.168.56.110"
-#   worker_ip = "192.168.56.111"
-
-#   # K3s Server Node
-#   config.vm.define "aahrachS" do |vm1|
-#     vm1.vm.hostname = "aahrachS"
-#     vm1.vm.network "private_network", ip: server_ip
-#     vm1.vm.provider "vmware_desktop" do |prl|
-#       prl.memory = 1024
-#       prl.cpus = 1
-#     end
-#     # K3s provisioning can be uncommented if needed
-#     # vm1.vm.provision "shell", inline: <<-SHELL
-#     #   echo "[+] Installing K3s server..."
-#     #   curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=#{server_ip}" sh -
-#     #   mkdir -p /home/vagrant/.kube
-#     #   cp /etc/rancher/k3s/k3s.yaml /home/vagrant/.kube/config
-#     #   chown -R vagrant:vagrant /home/vagrant/.kube
-#     #   echo 'export KUBECONFIG=/home/vagrant/.kube/config' >> /home/vagrant/.bashrc
-#     #   echo "alias k='kubectl'" >> /home/vagrant/.bashrc
-#     #   mkdir -p /vagrant
-#     #   cp /var/lib/rancher/k3s/server/node-token /vagrant/node-token
-#     # SHELL
-#   end
-
-#   # K3s Worker Node
-#   config.vm.define "aahrachSW" do |vm2|
-#     vm2.vm.hostname = "aahrachSW"
-#     vm2.vm.network "private_network", ip: worker_ip
-#     vm2.vm.provider "vmware_desktop" do |prl|
-#       prl.memory = 1024
-#       prl.cpus = 1
-#     end
-#     # Worker provisioning can be uncommented if needed
-#     # vm2.vm.provision "shell", inline: <<-SHELL
-#     #   echo "[*] Waiting for node-token to be available..."
-#     #   echo "alias k='kubectl'" >> /home/vagrant/.bashrc
-#     #   while [ ! -f /vagrant/node-token ]; do
-#     #     sleep 2
-#     #   done
-#     #   TOKEN=$(cat /vagrant/node-token)
-#     #   echo "[+] Installing K3s agent..."
-#     #   curl -sfL https://get.k3s.io | K3S_URL=https://#{server_ip}:6443 K3S_TOKEN=$TOKEN INSTALL_K3S_EXEC="--node-ip=#{worker_ip}" sh -
-#     # SHELL
-#   end
-# end
-
 Vagrant.configure("2") do |config|
     # config.vm.box = "gutehall/debian12"
-    config.vm.box = "spox/ubuntu-arm" 
-    config.vm.box_version = "1.0.0"
+    # config.vm.box = "spox/ubuntu-arm" 
+    # config.vm.box = "generic/alpine318"
+
+    # config.vm.box_version = "1.0.0"
+
+    config.vm.box = "generic/debian11-arm64"
+
+
+
 
     server_ip = "192.168.56.110"
     worker_ip = "192.168.56.111"

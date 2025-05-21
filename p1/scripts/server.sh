@@ -6,8 +6,8 @@ sudo apt-get install -y curl
 
 echo "alias k='kubectl'" >> /home/vagrant/.bashrc
 
-# Install K3s server
-curl -sfL https://get.k3s.io | sh -
+# Install K3s server with static IP
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.56.110" sh -
 
 # Wait for a few seconds to ensure k3s is running
 sleep 10
