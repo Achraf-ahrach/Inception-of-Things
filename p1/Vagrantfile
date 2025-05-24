@@ -1,14 +1,7 @@
+
 Vagrant.configure("2") do |config|
-    # config.vm.box = "gutehall/debian12"
-    # config.vm.box = "spox/ubuntu-arm" 
-    # config.vm.box = "generic/alpine318"
-
-    # config.vm.box_version = "1.0.0"
-
-    config.vm.box = "generic/debian11-arm64"
-
-
-
+    config.vm.box = "spox/ubuntu-arm" 
+    config.vm.box_version = "1.0.0"
 
     server_ip = "192.168.56.110"
     worker_ip = "192.168.56.111"
@@ -18,7 +11,6 @@ Vagrant.configure("2") do |config|
         vm1.vm.hostname = "aahrachS"
         vm1.vm.network "private_network", ip: server_ip
         vm1.vm.provider "vmware_desktop" do |prl|
-            prl.allowlist_verified = true
             prl.memory = 1024
             prl.cpus = 1
         end
