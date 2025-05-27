@@ -13,6 +13,9 @@ Vagrant.configure("2") do |config|
             pr.memory = 1024
             pr.cpus = 1
         end
+        vm.vm.provision "file", source: "./deployment", destination: "/tmp/deployment"
+        vm.vm.provision "file", source: "./services", destination: "/tmp/services"
+        vm.vm.provision "file", source: "./ingress", destination: "/tmp/ingress"
         vm.vm.provision "shell", path: "scripts/server.sh"
     end
 end

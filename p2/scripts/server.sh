@@ -15,7 +15,7 @@ sleep 10
 # Allow the vagrant user to run kubectl without sudo
 sudo mkdir -p /home/vagrant/.kube
 sudo cp /etc/rancher/k3s/k3s.yaml /home/vagrant/.kube/config
-sudo chown -R $USER:$USER /home/vagrant/.kube
+sudo chown -R vagrant:vagrant /home/vagrant/.kube
 
 # Set KUBECONFIG environment variable in .bashrc
 echo "export KUBECONFIG=/home/vagrant/.kube/config" >> /home/vagrant/.bashrc
