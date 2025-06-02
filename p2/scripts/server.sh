@@ -34,14 +34,13 @@ fi
 
 print "Installing K3s"
 curl -sfL https://get.k3s.io | sh -s - --flannel-iface eth1 || handle_error "Failed to install k3s"
-# curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.56.110" sh -
+
+# Wait for a few seconds to ensure k3s is running
+sleep 10s
 
 # Add alias for kubectl
 print "Adding alias for kubectl"
 echo "alias k='kubectl'" >> /home/vagrant/.bashrc
-
-# Wait for a few seconds to ensure k3s is running
-sleep 10s
 
 # Setup kubeconfig for vagrant user
 sudo mkdir -p /home/vagrant/.kube
@@ -51,47 +50,38 @@ echo "export KUBECONFIG=/home/vagrant/.kube/config" >> /home/vagrant/.bashrc
 
 # Apply deployment manifests
 print "Applying deployment manifests"
-cd /tmp/deployment || handle_error "Directory /tmp/deployment not found"
-sudo kubectl apply -f . || handle_error "Failed to apply deployment manifests"
+sudo kubectl apply -f /tmp/deployment/apps.yaml || handle_error "Failed to apply deployment manifests"
+print "Deployment manifests applied successfully"
 
-# Wait for all pods to be in running state
+# # Wait for all pods to be in running state
 # print "Waiting for all pods to be in running state"
 # sleep 10s ; sudo kubectl wait --for=condition=Ready pods --all --timeout=300s || handle_error "Not all pods are in running state"
-sleep 10s
+# # sleep 10s
 
-# if [ $? -eq 0 ]; then
-#   info "All pods are in running state"
-# else
-#   handle_error "Not all pods are in running state"
-# fi
+# # if [ $? -eq 0 ]; then
+# #   info "All pods are in running state"
+# # else
+# #   handle_error "Not all pods are in running state"
+# # fi
 
-# Apply service manifests
+# # Apply service manifests
 print "Applying service manifests"
-cd /tmp/services || handle_error "Directory /tmp/services not found"
-sudo kubectl apply -f . || handle_error "Failed to apply service manifests"
+sudo kubectl apply -f /tmp/services/apps-service.yaml || handle_error "Failed to apply service manifests"
+print "Service manifests applied successfully"
 
-# Wait for all services to be in running state
-print "Waiting for all services to be in running state"
-sudo  kubectl wait --for=jsonpath='{.spec.selector.app}' -f /tmp/services/ --timeout=300s || handle_error "Not all services are in running state"
+# # Wait for all services to be in running state
+# print "Waiting for all services to be in running state"
+# sudo  kubectl wait --for=jsonpath='{.spec.selector.app}' -f /tmp/services/ --timeout=300s || handle_error "Not all services are in running state"
+# # kubectl wait --for=condition=available --timeout=60s deployment/app1
 
 
 print "Applying ingress manifests"
-cd /tmp/ingress || handle_error "Directory /tmp/ingress not found"
-sudo kubectl apply -f . || handle_error "Failed to apply ingress manifests"
+sudo kubectl apply -f /tmp/ingress/ingress-config.yaml || handle_error "Failed to apply ingress manifests"
+print "Ingress manifests applied successfully"
 
 print "Script Complete"
 echo -e "${GREEN}All manifests have been successfully applied${RESET}"
 echo -e "${GREEN} You can Access The website by visiting ${YELLOW}http://192.168.56.110${RESET}"
 echo -e "${GREEN} The Port IS BELOW "
-# var=$(sudo kubectl get svc -n kube-system --kubeconfig /etc/rancher/k3s/k3s.yaml)
-# echo -e "${GREEN} $var ${RESET}"
-
-
-# //////////////////
-
-# Apply Kubernetes manifests
-print "Applying Kubernetes manifests..."
-# sudo -u vagrant kubectl apply -f /tmp/deployment/apps.yaml
-# sudo -u vagrant kubectl apply -f /tmp/services/apps-service.yaml
-# sudo -u vagrant kubectl apply -f /tmp/ingress/ingress-config.yaml
-
+var=$(sudo kubectl get svc -n kube-system --kubeconfig /etc/rancher/k3s/k3s.yaml)
+echo -e "${GREEN} $var ${RESET}"
