@@ -20,3 +20,4 @@ K3S_TOKEN=$(cat "$TOKEN_FILE")
 
 # Install K3s agent
 curl -sfL https://get.k3s.io | K3S_URL=${K3S_URL} K3S_TOKEN=${K3S_TOKEN} INSTALL_K3S_EXEC="--flannel-iface=eth1" sh - && echo "K3s server installed successfully."
+echo "export PATH=\$PATH:/sbin" >> /home/vagrant/.bashrc
