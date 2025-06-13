@@ -1,32 +1,28 @@
 
 Vagrant.configure("2") do |config|
-    config.vm.box = "spox/ubuntu-arm" 
-    config.vm.box_version = "1.0.0"
 
     server_ip = "192.168.56.110"
     worker_ip = "192.168.56.111"
     
-    # K3s Server Node
     config.vm.define "aahrachS" do |vm1|
+        vm1.vm.box = "debian/bookworm64"
         vm1.vm.hostname = "aahrachS"
         vm1.vm.network "private_network", ip: server_ip
-        vm1.vm.provider "vmware_desktop" do |prl|
-            prl.allowlist_verified = true
+        vm1.vm.provider "virtualbox" do |prl|
             prl.memory = 1024
             prl.cpus = 1
         end
-        vm1.vm.provision "shell", path: "scripts/server.sh", args: [server_ip]
+        # vm1.vm.provision "shell", path: "scripts/server.sh", args: [server_ip]
     end
 
-    # K3s Worker Node
     config.vm.define "aahrachSW" do |vm2|
+        vm2.vm.box = "debian/bookworm64"
         vm2.vm.hostname = "aahrachSW"
         vm2.vm.network "private_network", ip: worker_ip
-        vm2.vm.provider "vmware_desktop" do |prl|
-            prl.allowlist_verified = true
+        vm2.vm.provider "virtualbox" do |prl|
             prl.memory = 1024
             prl.cpus = 1
         end
-        vm2.vm.provision "shell", path: "scripts/agent.sh", args: [server_ip]
+        # vm2.vm.provision "shell", path: "scripts/agent.sh", args: [server_ip]
     end
 end
