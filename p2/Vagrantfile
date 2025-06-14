@@ -1,21 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-    config.vm.box = "spox/ubuntu-arm" 
-    config.vm.box_version = "1.0.0"
-    
+    config.vm.box = "debian/bookworm64"
+    config.vm.define "aahrachS"
+    config.vm.hostname = "aahrachS"
     config.vm.network "private_network", ip: "192.168.56.110"
+
     config.vm.network "forwarded_port", guest: 80, host: 8082
 
-    config.vm.define "aahrachS" do |vm|
-        vm.vm.hostname = "aahrachS"
-        vm.vm.provider "vmware_desktop" do |pr|
-            pr.allowlist_verified = true
-            pr.memory = 1024
-            pr.cpus = 1
-        end
-        vm.vm.provision "file", source: "./deployment", destination: "/tmp/deployment"
-        vm.vm.provision "file", source: "./services", destination: "/tmp/services"
-        vm.vm.provision "file", source: "./ingress", destination: "/tmp/ingress"
-        vm.vm.provision "shell", path: "scripts/server.sh"
+    config.vm.provider "virtualbox" do |pr|
+        pr.name = "aahrachS"
+        pr.memory = 1024
+        pr.cpus = 1
     end
+
+    vm.vm.provision "file", source: "./deployment", destination: "/tmp/deployment"
+    vm.vm.provision "file", source: "./services", destination: "/tmp/services"
+    vm.vm.provision "file", source: "./ingress", destination: "/tmp/ingress"
+    vm.vm.provision "shell", path: "scripts/server.sh"
 end
