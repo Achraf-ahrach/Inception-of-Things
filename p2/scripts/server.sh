@@ -6,13 +6,13 @@ RED='\033[0;31m'
 BLUE='\033[0;34m'
 RESET='\033[0m'
 
+# Functions
 print() {
   echo -e "${BLUE}========================================${RESET}"
   echo -e "${BLUE}$1${RESET}"
   echo -e "${BLUE}========================================${RESET}"
 }
 
-# Function to handle errors
 handle_error() {
   echo -e "${RED}Error: $1${RESET}"
   exit 1
@@ -22,15 +22,10 @@ info() {
   echo -e "${YELLOW}Info: $1${RESET}"
 }
 
-# Update and install required packages
-# sudo apt-get update && sudo apt-get upgrade -y
-print "Checking if curl is installed"
-command -v curl
-if [ $? -eq 0 ]; then
-  info "curl is already installed"
-else
-  sudo apt install curl -y || handle_error "Failed to install curl"
-fi
+
+sudo apt-get update && sudo apt-get upgrade -y
+sudo apt-get install -y curl
+print "system updated and curl installed"
 
 print "Installing K3s"
 curl -sfL https://get.k3s.io | sh -s - --flannel-iface eth1 || handle_error "Failed to install k3s"

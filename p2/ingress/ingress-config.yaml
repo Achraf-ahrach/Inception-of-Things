@@ -3,8 +3,9 @@ kind: Ingress
 metadata:
   name: app-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    traefik.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: traefik
   rules:
     - host: app1.com
       http:
@@ -26,7 +27,8 @@ spec:
                 name: app2-src
                 port:
                   number: 80
-    - http:
+    - host: app3.com
+      http:
         paths:
           - path: /
             pathType: Prefix

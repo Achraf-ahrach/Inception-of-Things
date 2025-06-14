@@ -15,8 +15,8 @@ Vagrant.configure("2") do |config|
         pr.cpus = 1
     end
 
-    vm.vm.provision "file", source: "./deployment", destination: "/tmp/deployment"
-    vm.vm.provision "file", source: "./services", destination: "/tmp/services"
-    vm.vm.provision "file", source: "./ingress", destination: "/tmp/ingress"
-    vm.vm.provision "shell", path: "scripts/server.sh"
+    config.vm.provision "file", source: "./deployment", destination: "/tmp/deployment"
+    config.vm.provision "file", source: "./services", destination: "/tmp/services"
+    config.vm.provision "file", source: "./ingress", destination: "/tmp/ingress"
+    config.vm.provision "shell", path: "scripts/server.sh"
 end
