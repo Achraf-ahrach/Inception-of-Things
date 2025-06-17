@@ -1,7 +1,9 @@
 #!/bin/bash
 
 BLUE='\033[0;34m'
+GREEN='\033[0;32m'
 RESET='\033[0m'
+YELLOW='\033[1;33m'
 
 # Function
 print() {
@@ -42,6 +44,3 @@ kubectl apply -f /vagrant/apps/
 print "Script Complete"
 echo -e "${GREEN}All manifests have been successfully applied${RESET}"
 echo -e "${GREEN} You can Access The website by visiting ${YELLOW}http://192.168.56.110${RESET}"
-echo -e "${GREEN} The Port IS BELOW "
-var=$(sudo kubectl get svc -n kube-system --kubeconfig /etc/rancher/k3s/k3s.yaml)
-echo -e "${GREEN} $var ${RESET}"
