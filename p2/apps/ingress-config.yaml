@@ -1,12 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: app-ingress
-  annotations:
-    traefik.ingress.kubernetes.io/rewrite-target: /
+  name: ingress
 spec:
-  ingressClassName: traefik
+  ingressClassName: nginx
   rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app-three
+                port:
+                  number: 80
     - host: app1.com
       http:
         paths:
@@ -14,7 +21,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app1-src
+                name: app-one
                 port:
                   number: 80
     - host: app2.com
@@ -24,7 +31,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app2-src
+                name: app-two
                 port:
                   number: 80
     - host: app3.com
@@ -34,6 +41,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app3-src
+                name: app-three
                 port:
                   number: 80
+

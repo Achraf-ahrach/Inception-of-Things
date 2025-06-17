@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-one
+  labels:
+    app: app-one
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: app-one
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-two
+  labels:
+    app: app-two
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: app-two
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-three
+  labels:
+    app: app-three
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: app-three
