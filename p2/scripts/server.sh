@@ -37,4 +37,11 @@ timeout 180 bash -c '
 
 print "Applying deployment apps"
 kubectl apply -f /vagrant/apps/
-print "Deployment apps applied successfully"
+
+
+print "Script Complete"
+echo -e "${GREEN}All manifests have been successfully applied${RESET}"
+echo -e "${GREEN} You can Access The website by visiting ${YELLOW}http://192.168.56.110${RESET}"
+echo -e "${GREEN} The Port IS BELOW "
+var=$(sudo kubectl get svc -n kube-system --kubeconfig /etc/rancher/k3s/k3s.yaml)
+echo -e "${GREEN} $var ${RESET}"
