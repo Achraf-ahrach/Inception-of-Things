@@ -16,7 +16,7 @@ kubectl -n argocd rollout status deployment/argocd-server
 
 # Apply your app configuration
 print_message $BLUE "Applying ArgoCD Playground app configuration..."
-kubectl apply -f ../confs/playground-app.yaml
+kubectl apply -f ../config/argocd-application.yaml
 print_message $GREEN "Application configuration applied successfully."
 
 # Function to get ArgoCD admin password

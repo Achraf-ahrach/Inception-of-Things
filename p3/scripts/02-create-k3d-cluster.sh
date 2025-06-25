@@ -11,5 +11,8 @@ fi
 
 # Create a K3D cluster
 print_message $BLUE "Creating K3D cluster..."
-k3d cluster create mycluster > /dev/null 2>&1
+k3d cluster create mycluster --port "8888:9090@loadbalancer" --wait > /dev/null 2>&1
+print_message $BLUE "Waiting for the load balancer port (8888:9090) to be ready..."
+sleep 20
+
 print_message $GREEN "Cluster Created !"
