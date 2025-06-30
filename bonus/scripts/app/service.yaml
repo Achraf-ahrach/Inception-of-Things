@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: will-app-service
+  namespace: dev
+spec:
+  selector:
+    app: wil-playground
+  ports:
+  - port: 9090
+    targetPort: 8888
+    protocol: TCP
+    name: http
+  type: LoadBalancer
