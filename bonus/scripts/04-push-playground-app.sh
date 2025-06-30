@@ -18,7 +18,7 @@ print_message $GREEN "Project created successfully!"
 print_message $BLUE "Cloning repository..."
 git clone "$GITLAB_REPO_URL" "$TEMP_DIR/$REPO_NAME" > /dev/null 2>&1
 
-# # Check if clone was successful
+# Check if clone was successful
 # if [ $? -ne 0 ]; then
 #   print_message $RED "Failed to clone the repository. Please check the URL and access token."
 #   exit 1
