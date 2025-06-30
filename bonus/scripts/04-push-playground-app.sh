@@ -4,7 +4,7 @@ source "$(dirname "$0")/lib.sh"
 source .env
 
 
-GITLAB_REPO_URL="http://oauth2:$GITLAB_ACCESS_TOKEN@localhost:8888/root/$PROJECT_NAME.git"
+GITLAB_REPO_URL="http://oauth2:$GITLAB_ACCESS_TOKEN@localhost:8181/root/$PROJECT_NAME.git"
 TEMP_DIR=$(mktemp -d)
 REPO_NAME=$(basename "$GITLAB_REPO_URL" .git)
 
@@ -19,10 +19,10 @@ print_message $BLUE "Cloning repository..."
 git clone "$GITLAB_REPO_URL" "$TEMP_DIR/$REPO_NAME" > /dev/null 2>&1
 
 # Check if clone was successful
-# if [ $? -ne 0 ]; then
-#   print_message $RED "Failed to clone the repository. Please check the URL and access token."
-#   exit 1
-# fi
+if [ $? -ne 0 ]; then
+  print_message $RED "Failed to clone the repository. Please check the URL and access token."
+  exit 1
+fi
 
 # Copy the source directory into the repository
 print_message $BLUE "Copying ./app to the repository..."
@@ -60,4 +60,4 @@ rm -rf "$TEMP_DIR" > /dev/null 2>&1
 print_message $GREEN "Done!"
 # if do you want show project in gitlab this is link
 print_message $GREEN "App project is available at: \c"
-print_message $CYAN "http://localhost:8888/root/$PROJECT_NAME"
+print_message $CYAN "http://localhost:8181/root/$PROJECT_NAME"

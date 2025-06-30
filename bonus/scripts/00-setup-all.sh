@@ -38,6 +38,10 @@ read -p "Press Enter to continue after verifying the .env file..."
 # Step 4: Push playground app to Gitlab
 print_section "Step 4: Pushing Playground App to Gitlab"
 ./04-push-playground-app.sh
+if [ $? -ne 0 ]; then
+    print_message $RED "❌ Error: Failed to push playground app to Gitlab. Please check your .env file and GitLab access token."
+    exit 1
+fi
 
 # Step 3: Setup ArgoCD
 print_section "Step 5: Setting up ArgoCD"
