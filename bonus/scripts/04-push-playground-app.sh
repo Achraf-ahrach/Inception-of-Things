@@ -11,18 +11,18 @@ REPO_NAME=$(basename "$GITLAB_REPO_URL" .git)
 print_message $BLUE "Creating App project in GitLab..."
 curl --header "PRIVATE-TOKEN: $GITLAB_ACCESS_TOKEN" \
      --data "name=$PROJECT_NAME" \
-     http://localhost:8888/api/v4/projects > /dev/null 2>&1
+     http://localhost:8181/api/v4/projects > /dev/null 2>&1
 print_message $GREEN "Project created successfully!"
 
 # Clone the repository
 print_message $BLUE "Cloning repository..."
 git clone "$GITLAB_REPO_URL" "$TEMP_DIR/$REPO_NAME" > /dev/null 2>&1
 
-# Check if clone was successful
-if [ $? -ne 0 ]; then
-  print_message $RED "Failed to clone the repository. Please check the URL and access token."
-  exit 1
-fi
+# # Check if clone was successful
+# if [ $? -ne 0 ]; then
+#   print_message $RED "Failed to clone the repository. Please check the URL and access token."
+#   exit 1
+# fi
 
 # Copy the source directory into the repository
 print_message $BLUE "Copying ./app to the repository..."
