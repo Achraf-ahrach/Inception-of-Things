@@ -30,6 +30,9 @@ print_section "Step 2: Creating K3d Cluster"
 # Step 3: Setup Gitlab
 print_section "Step 3: Setting up Gitlab"
 ./03-setup-gitlab.sh
+if [ $? -ne 0 ]; then
+    exit 1
+fi
 
 # Prompt user to insert GitLab token
 print_message $YELLOW "🛑 Please make sure your GITLAB_ACCESS_TOKEN is set in the .env file."
