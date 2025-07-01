@@ -9,6 +9,10 @@ PID_ARGOCD=$!
 
 # Show access info
 print_message $GREEN "🌐 Argo CD is accessible at: \c"
+
+# Get ArgoCD admin password
+ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode)
+print_message $GREEN "✅ ArgoCD Admin Credentials:\nUsername: admin\nPassword: $ARGOCD_PASSWORD"
 print_message $CYAN "https://localhost:8080"
 
 print_message $YELLOW "Press [ENTER] to stop port-forwarding for ArgoCD..."

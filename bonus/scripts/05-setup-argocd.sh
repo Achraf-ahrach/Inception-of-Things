@@ -23,7 +23,6 @@ sleep 10
 
 # Get ArgoCD admin password
 ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode)
-print_message $GREEN "✅ ArgoCD Admin Credentials:\nUsername: admin\nPassword: $ARGOCD_PASSWORD"
 
 # Login to ArgoCD
 print_message $BLUE "Logging into ArgoCD CLI..."
