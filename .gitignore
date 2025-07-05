@@ -1,6 +1,6 @@
 .vscode/
 .vagrant/
-.env
+# .env/
 .DS_Store
 node-token
 test/
